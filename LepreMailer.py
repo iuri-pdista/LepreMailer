@@ -1,12 +1,12 @@
 import email
-import os
+# import os
 from email.message import EmailMessage
 import ssl
 import smtplib
 
-# remetente = "financeiro.leprechauns.rugby@gmail.com"
+# "financeiro.leprechauns.rugby@gmail.com"
 # senha = os.environ.get(LEPRESENHA)
-def manda_email(destinatario):
+def envia_email(destinatario):
     email = EmailMessage()
     email['From'], email['To'] = "correaiuri86@gmail.com", destinatario[1]
     email['Subject'] = "Lembrete do pagamento da mensalidade"
@@ -27,7 +27,11 @@ def cria_lista_emails(cadastros):
     pessoas = {}
     for cadastro in cadastros:
         if cadastro:
-            nome, email = cadastro.split(";")[0], cadastro.split(";")[1]
+            nome, email = cadastro.split(",")[0], cadastro.split(",")[1]
             pessoas[nome] = email
     return pessoas
-manda_email(["Iuri" , "iuricorrea05@gmail.com"])
+
+def organiza_emails(pessoas):
+    for pessoa in pessoas:
+        if (pessoa[0] and pessoa[1] and "@" in pessoa[1]):
+            envia_email(pessoa)
