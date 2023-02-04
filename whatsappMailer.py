@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 import time
 import urllib
 import time
-import os
 
 def cria_lista_telefones(cadastros):
     pessoas = {}
@@ -16,14 +15,16 @@ def cria_lista_telefones(cadastros):
 
 def coleta_telefones(nomeDoArquivo):
     with open(nomeDoArquivo, 'r') as cadastros:
-        return cria_lista_telefones(cadastros.read().split("\n"))    
+        return cria_lista_telefones(cadastros.read().split("\n")) 
+
+def espera_pagina_carregar():
+    while len(navegador.find_elements(By.ID, 'pane-side')) < 1: 
+        time.sleep(1)
+    time.sleep(7)
 
 navegador = webdriver.Firefox()
 navegador.get("https://web.whatsapp.com")
-while len(navegador.find_elements(By.ID, 'side')) < 1: 
-    time.sleep(1)
-time.sleep(2)
-
+espera_pagina_carregar()
 cadastros = coleta_telefones("Planilha.csv")
 for pessoa in cadastros:
     telefone = cadastros.get(pessoa)
@@ -31,7 +32,6 @@ for pessoa in cadastros:
     texto = urllib.parse.quote(texto)
     link = f"https://web.whatsapp.com/send?phone={telefone}&text={texto}"
     navegador.get(link)
-    while len(navegador.find_elements(By.ID, 'side')) < 1: 
-        time.sleep(1)
-    time.sleep(2) 
-    
+    espera_pagina_carregar() 
+    navegador.find_element(By.XPATH,'/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[2]/button').click()
+    time.sleep(10)
