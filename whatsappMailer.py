@@ -27,11 +27,15 @@ navegador.get("https://web.whatsapp.com")
 espera_pagina_carregar()
 cadastros = coleta_telefones("Planilha.csv")
 for pessoa in cadastros:
-    telefone = cadastros.get(pessoa)
-    texto = f"Ola, {pessoa}. Mensagem de lembrete padrao"
-    texto = urllib.parse.quote(texto)
-    link = f"https://web.whatsapp.com/send?phone={telefone}&text={texto}"
-    navegador.get(link)
-    espera_pagina_carregar() 
-    navegador.find_element(By.XPATH,'/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[2]/button').click()
+    try:    
+        telefone = cadastros.get(pessoa)
+        texto = f"Ola, {pessoa}. Mensagem de lembrete padrao"
+        texto = urllib.parse.quote(texto)
+        link = f"https://web.whatsapp.com/send?phone={telefone}&text={texto}"
+        navegador.get(link)
+        espera_pagina_carregar() 
+    
+        navegador.find_element(By.XPATH,'/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[2]/button').click()
+    except:
+        print(f"Mensagem para {pessoa} nao enviada")
     time.sleep(10)
