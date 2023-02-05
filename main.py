@@ -1,5 +1,5 @@
 import lepreMailer as mailer
-# import whatsappMailer as wa
+import whatsappMailer as wa
 
 def tratar_arquivo(nomeDoArquivo):
     with open(nomeDoArquivo) as cadastros:
@@ -29,3 +29,4 @@ tratar_arquivo("Planilha.csv")
 listas = ler_planilha("Planilha.csv")
 telefones, emails = listas[0], listas[1]
 mailer.envia_emails(emails)
+wa.envia_mensagens(telefones)

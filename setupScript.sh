@@ -2,7 +2,7 @@
 
 if [[ $LEPRESENHA = "" ]]; then
 	echo "Variavel n/ existente. Criando..."
-	export LEPRESENHA="lepresenha2023"
+	export LEPRESENHA="zyixpaabciohafkg"
 else 
 	echo "Variavel ja existente: $LEPRESENHA"
 fi

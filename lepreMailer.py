@@ -23,18 +23,6 @@ def envia_email(destinatario):
     except:
         print("Email para o destinatario: {destinatario[0]} nao enviado")
         return 0
-        
-def cria_lista_emails(cadastros):
-    pessoas = {}
-    for cadastro in cadastros:
-        if cadastro:
-            nome, email = cadastro.split(",")[0], cadastro.split(",")[1]
-            pessoas[nome] = email
-    return pessoas
-
-def coleta_emails(nomeDoArquivo):
-    with open(nomeDoArquivo, 'r') as cadastros:
-        return cria_lista_emails(cadastros.read().split("\n"))
 
 def envia_emails(pessoas):
     for nome in pessoas:
